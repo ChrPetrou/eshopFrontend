@@ -18,8 +18,6 @@ const MenuItem = styled.div`
   display: flex;
   flex: 1;
   min-width: 100px;
-  /* position: relative; */
-
   justify-content: center;
   cursor: pointer;
   text-align: center;
@@ -36,11 +34,12 @@ const MenuChildContainer = styled.div`
   z-index: 1;
   background-color: ${colors.dark};
   position: absolute;
-  left: 0;
+  /* left: 0; */
+  margin: auto;
   padding: 10px;
   top: calc(100% + 5px);
-  max-width: 1150px;
-  width: 100%;
+  /* max-width: 1150px; */
+  max-width: 100%;
   border-radius: 5px;
 
   border: 2px solid ${colors.light};
@@ -81,7 +80,7 @@ const MenuChild = styled.div<cusDiv>`
   padding: 0 10px;
   width: 100%;
   gap: 10px;
-  min-width: 200px;
+  min-width: 100px;
   flex: 1;
   font-weight: 900;
   border-right: ${({ hassections }) =>
