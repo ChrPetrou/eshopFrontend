@@ -17,8 +17,9 @@ const MenuContainer = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    top: calc(100% + 0px);
-    background-color: transparent;
+    top: calc(100% - 20px);
+    /* background-color: red; */
+    z-index: -1;
   }
 `;
 
@@ -40,7 +41,7 @@ const MenuItemContainer = styled.div<Active>`
     height: 100%;
 
     position: absolute;
-    top: calc(100% + 0px);
+    top: calc(100% - 10px);
     background-color: transparent;
   }
   &::before {

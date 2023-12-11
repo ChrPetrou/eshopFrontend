@@ -6,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 import { styled } from "styled-components";
 const Container = styled.div`
   display: flex;
-  width: 25%;
+  width: 100%;
   margin: auto;
   min-width: 200px;
 `;
