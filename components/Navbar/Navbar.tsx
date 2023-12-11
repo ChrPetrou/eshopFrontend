@@ -175,10 +175,15 @@ const Navbar = () => {
     },
 
     {
-      title: "General Type",
+      title: "Shop All",
       link: "/source",
       nestedMenu: [
-        { title: "ACTION Ones", link: "/source/db", nestedMenu: [] },
+        { title: " All", link: "/", nestedMenu: [] },
+        { title: "Early Bird", link: "/", nestedMenu: [] },
+        { title: " Pre-Order", link: "/" },
+        { title: " Released & In Stock", link: "/", nestedMenu: [] },
+        { title: "  Post Order Stock", link: "/", nestedMenu: [] },
+        { title: "  Super Discount", link: "/", nestedMenu: [] },
       ],
     },
     {
