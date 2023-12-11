@@ -16,6 +16,8 @@ import BurgerMenu from "./BurgerMenu";
 const ContainerExtent = styled(Container)`
   flex-direction: row;
   background-color: ${colors.dark};
+  position: sticky;
+  top: 0;
   /* padding: 20px; */
 `;
 
@@ -40,6 +42,7 @@ const AnimationContainer = styled.div`
   width: 50%;
   flex: 2;
   gap: 1px;
+  text-align: center;
   a {
     margin-top: 10px;
     text-decoration: none;
@@ -61,6 +64,13 @@ const Navbar = () => {
 
   const menu: MenuItem[] = [
     { title: "Home", link: "/", nestedMenu: [] },
+    {
+      title: "General Type",
+      link: "/source",
+      nestedMenu: [
+        { title: "ACTION Ones", link: "/source/db", nestedMenu: [] },
+      ],
+    },
     {
       title: "Source Type",
       link: "/source",
@@ -152,30 +162,20 @@ const Navbar = () => {
         },
       ],
     },
+
     {
       title: "General Type",
       link: "/source",
       nestedMenu: [
-        { title: "ACTION Ones", link: "/source/db", nestedMenu: [] },
-      ],
-    },
-    {
-      title: "General Type",
-      link: "/source",
-      nestedMenu: [
-        { title: "ACTION Ones", link: "/source/db", nestedMenu: [] },
-      ],
-    },
-    {
-      title: "General Type",
-      link: "/source",
-      nestedMenu: [
-        { title: "ACTION Ones", link: "/source/db", nestedMenu: [] },
+        { title: "  Soul Like", link: "/source/db", nestedMenu: [] },
+        { title: "Life Size", link: "/source/db", nestedMenu: [] },
+        { title: "Skin Change", link: "/source/db", nestedMenu: [] },
+        { title: "Painting", link: "/source/db", nestedMenu: [] },
       ],
     },
 
     {
-      title: "Shop",
+      title: "Shop All",
       link: "/source",
       nestedMenu: [
         { title: " All", link: "/", nestedMenu: [] },
@@ -190,19 +190,18 @@ const Navbar = () => {
       title: "Height",
       link: "/source",
       nestedMenu: [
-        { title: "Big Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
-        { title: "Small Ones", link: "/source/db", nestedMenu: [] },
+        { title: "     10-15cm", link: "/source/db", nestedMenu: [] },
+        { title: "16-25cm", link: "/source/db", nestedMenu: [] },
+        { title: "36-50cm", link: "/source/db", nestedMenu: [] },
+        { title: "51-69cm", link: "/source/db", nestedMenu: [] },
+        { title: "70-90cm", link: "/source/db", nestedMenu: [] },
+        { title: "over 90cm", link: "/source/db", nestedMenu: [] },
       ],
+    },
+    {
+      title: "About Us",
+      link: "/source",
+      nestedMenu: [{ title: "About Us", link: "/source/db", nestedMenu: [] }],
     },
   ];
   return (
@@ -218,7 +217,9 @@ const Navbar = () => {
           </Link>
           <p>Nihon Figure Haven</p>
         </AnimationContainer>
+
         <Profile />
+
         {width > size.tablet && <Menu menu={menu} />}
       </ContainerInnerExtend>
     </ContainerExtent>

@@ -12,6 +12,14 @@ const MenuContainer = styled.div`
   width: 100%;
   gap: 10px;
   color: ${colors.light};
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: calc(100% + 0px);
+    background-color: transparent;
+  }
 `;
 
 interface Active {
@@ -20,11 +28,21 @@ interface Active {
 
 const MenuItemContainer = styled.div<Active>`
   display: flex;
+  /* flex-direction: column; */
   flex: 1;
   min-width: 100px;
   justify-content: center;
 
   border-radius: 5px 5px 0 0;
+  &:after {
+    content: "";
+    width: 100px;
+    height: 100%;
+
+    position: absolute;
+    top: calc(100% + 0px);
+    background-color: transparent;
+  }
   &::before {
     content: ${({ isActive }) => (isActive ? `""` : "unset")};
     position: absolute;
@@ -66,7 +84,7 @@ const MenuChildContainer = styled.div<cusDiv>`
   top: calc(100% + 10px);
   /* max-width: 1150px; */
 
-  min-width: 250px;
+  /* min-width: 170px; */
   max-width: 100%;
   width: max-content;
   border-radius: 5px;
@@ -120,11 +138,12 @@ interface Props {
 
 const Menu: React.FC<Props> = ({ menu }) => {
   const [activeTap, setActiveTap] = useState<number | null>();
+  const [isActive, setIsActive] = useState(false);
   const { width } = useWindowSize();
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <MenuContainer>
+    <MenuContainer onMouseLeave={() => !isActive && setActiveTap(null)}>
       {menu.map((element, index) => (
         <MenuItemContainer
           isActive={
@@ -133,6 +152,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
             element?.nestedMenu.length > 0
           }
           key={index}
+          onMouseLeave={() => setActiveTap(null)}
           onMouseEnter={() => setActiveTap(index)}
         >
           <p>{element.title}</p>
@@ -152,6 +172,8 @@ const Menu: React.FC<Props> = ({ menu }) => {
                 }
               >
                 <ChildContainerInner
+                  onMouseEnter={() => setIsActive(true)}
+                  onMouseLeave={() => setActiveTap(null)}
                   hasSections={
                     element.nestedMenu[0].nestedMenu &&
                     element.nestedMenu[0].nestedMenu.length > 0
