@@ -80,7 +80,7 @@ const MenuChild = styled.div<cusDiv>`
   padding: 0 10px;
   width: 100%;
   gap: 10px;
-  min-width: 100px;
+  min-width: 110px;
   flex: 1;
   font-weight: 900;
   border-right: ${({ hassections }) =>
