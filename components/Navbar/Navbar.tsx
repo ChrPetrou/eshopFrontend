@@ -175,7 +175,7 @@ const Navbar = () => {
     },
 
     {
-      title: "Shop All",
+      title: "Shop",
       link: "/source",
       nestedMenu: [
         { title: " All", link: "/", nestedMenu: [] },

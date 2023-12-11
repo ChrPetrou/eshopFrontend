@@ -14,11 +14,32 @@ const MenuContainer = styled.div`
   color: ${colors.light};
 `;
 
-const MenuItem = styled.div`
+interface Active {
+  isActive: boolean;
+}
+
+const MenuItemContainer = styled.div<Active>`
   display: flex;
   flex: 1;
   min-width: 100px;
   justify-content: center;
+
+  border-radius: 5px 5px 0 0;
+  &::before {
+    content: ${({ isActive }) => (isActive ? `""` : "unset")};
+    position: absolute;
+    width: 10px;
+    left: auto;
+    right: auto;
+    height: 10px;
+    top: calc(100% + 5px);
+
+    border-top: 2.5px solid ${colors.light};
+    border-left: 2.5px solid ${colors.light};
+    z-index: 10;
+    background-color: ${colors.dark};
+    rotate: 45deg;
+  }
   cursor: pointer;
   text-align: center;
 
@@ -27,52 +48,43 @@ const MenuItem = styled.div`
   }
 `;
 
-const MenuChildContainer = styled.div`
+interface cusDiv {
+  hasSections: boolean | undefined;
+  length?: boolean;
+}
+
+const MenuChildContainer = styled.div<cusDiv>`
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
   background-color: ${colors.dark};
   position: absolute;
-  /* left: 0; */
-  margin: auto;
+  left: ${({ hasSections, length }) => (hasSections && length ? "0" : "unset")};
+  /* margin: auto; */
   padding: 10px;
-  top: calc(100% + 5px);
+  top: calc(100% + 10px);
   /* max-width: 1150px; */
+
+  min-width: 250px;
   max-width: 100%;
+  width: max-content;
   border-radius: 5px;
 
-  border: 2px solid ${colors.light};
+  border: 2.5px solid ${colors.light};
 `;
 
-const ChildContainerInner = styled.div`
+const ChildContainerInner = styled.div<cusDiv>`
   position: relative;
   display: flex;
+  margin: auto;
+
   width: 100%;
   /* flex: 1; */
+  flex-direction: ${({ hasSections }) => (hasSections ? "row" : "column")};
   gap: 10px;
   flex-wrap: wrap;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 10px;
-    left: auto;
-    right: auto;
-    height: 10px;
-    bottom: calc(100% + 5px);
-
-    border-top: 2px solid ${colors.light};
-    border-left: 2px solid ${colors.light};
-
-    background-color: ${colors.dark};
-    rotate: 45deg;
-  }
 `;
-
-interface cusDiv {
-  hassections: boolean | undefined;
-}
 
 const MenuChild = styled.div<cusDiv>`
   display: flex;
@@ -83,8 +95,8 @@ const MenuChild = styled.div<cusDiv>`
   min-width: 110px;
   flex: 1;
   font-weight: 900;
-  border-right: ${({ hassections }) =>
-    hassections ? `2px solid ${colors.light}` : "none"};
+  border-right: ${({ hasSections }) =>
+    hasSections ? `2.5px solid ${colors.light}` : "none"};
   &:last-child {
     border-right: none;
   }
@@ -110,25 +122,46 @@ const Menu: React.FC<Props> = ({ menu }) => {
   const [activeTap, setActiveTap] = useState<number | null>();
   const { width } = useWindowSize();
   const ref = useRef<HTMLDivElement>(null);
-  console.log(ref.current?.offsetLeft);
 
   return (
     <MenuContainer>
       {menu.map((element, index) => (
-        <MenuItem key={index} onMouseEnter={() => setActiveTap(index)}>
+        <MenuItemContainer
+          isActive={
+            activeTap === index &&
+            element?.nestedMenu != undefined &&
+            element?.nestedMenu.length > 0
+          }
+          key={index}
+          onMouseEnter={() => setActiveTap(index)}
+        >
           <p>{element.title}</p>
 
           {element?.nestedMenu != undefined &&
             element.hasOwnProperty("nestedMenu") &&
             activeTap == index &&
             element?.nestedMenu.length > 0 && (
-              <MenuChildContainer>
-                <ChildContainerInner>
+              <MenuChildContainer
+                length={
+                  element?.nestedMenu != undefined &&
+                  element?.nestedMenu.length > 4
+                }
+                hasSections={
+                  element.nestedMenu[0].nestedMenu &&
+                  element.nestedMenu[0].nestedMenu.length > 0
+                }
+              >
+                <ChildContainerInner
+                  hasSections={
+                    element.nestedMenu[0].nestedMenu &&
+                    element.nestedMenu[0].nestedMenu.length > 0
+                  }
+                >
                   {element.nestedMenu.map((child, ind) => (
                     <MenuChild
                       ref={ref}
                       key={ind}
-                      hassections={
+                      hasSections={
                         child?.nestedMenu != undefined &&
                         child.nestedMenu.length > 0
                           ? true
@@ -148,7 +181,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
                 </ChildContainerInner>
               </MenuChildContainer>
             )}
-        </MenuItem>
+        </MenuItemContainer>
       ))}
     </MenuContainer>
   );
