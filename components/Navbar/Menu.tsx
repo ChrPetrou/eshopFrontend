@@ -18,7 +18,8 @@ const MenuItem = styled.div`
   display: flex;
   flex: 1;
   min-width: 100px;
-  position: relative;
+  /* position: relative; */
+
   justify-content: center;
   cursor: pointer;
   text-align: center;
@@ -38,7 +39,8 @@ const MenuChildContainer = styled.div`
   left: 0;
   padding: 10px;
   top: calc(100% + 5px);
-  min-width: 250px;
+  max-width: 1150px;
+  width: 100%;
   border-radius: 5px;
 
   border: 2px solid ${colors.light};
@@ -47,7 +49,8 @@ const MenuChildContainer = styled.div`
 const ChildContainerInner = styled.div`
   position: relative;
   display: flex;
-  flex: 1;
+  width: 100%;
+  /* flex: 1; */
   gap: 10px;
   flex-wrap: wrap;
 
@@ -58,7 +61,7 @@ const ChildContainerInner = styled.div`
     left: auto;
     right: auto;
     height: 10px;
-    bottom: calc(100% + 5.3px);
+    bottom: calc(100% + 5px);
 
     border-top: 2px solid ${colors.light};
     border-left: 2px solid ${colors.light};
@@ -76,6 +79,7 @@ const MenuChild = styled.div<cusDiv>`
   display: flex;
   flex-direction: column;
   padding: 0 10px;
+  width: 100%;
   gap: 10px;
   min-width: 200px;
   flex: 1;
