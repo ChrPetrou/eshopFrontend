@@ -35,7 +35,7 @@ const PlaceHolder = styled.div`
   bottom: 0;
   margin: auto;
   height: fit-content;
-  /* background-color: ${colors.light}; */
+
   z-index: 1;
   padding: 0 5px;
   position: absolute;
