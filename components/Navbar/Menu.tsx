@@ -70,7 +70,7 @@ const MenuItemContainer = styled.div<Active>`
 
 interface cusDiv {
   hasSections: boolean | undefined;
-  length?: boolean;
+  hasLength?: boolean;
 }
 
 const MenuChildContainer = styled.div<cusDiv>`
@@ -80,7 +80,8 @@ const MenuChildContainer = styled.div<cusDiv>`
   z-index: 1;
   background-color: ${colors.dark};
   position: absolute;
-  left: ${({ hasSections, length }) => (hasSections && length ? "0" : "unset")};
+  left: ${({ hasSections, hasLength }) =>
+    hasSections && hasLength ? "0" : "unset"};
   /* margin: auto; */
   padding: 10px;
   top: calc(100% + 10px);
@@ -164,7 +165,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
             activeTap == index &&
             element?.nestedMenu.length > 0 && (
               <MenuChildContainer
-                length={
+                hasLength={
                   element?.nestedMenu != undefined &&
                   element?.nestedMenu.length > 4
                 }
