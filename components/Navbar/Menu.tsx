@@ -29,6 +29,7 @@ interface Active {
 
 const MenuItemContainer = styled.div<Active>`
   display: flex;
+
   /* flex-direction: column; */
   flex: 1;
   min-width: 100px;
@@ -41,7 +42,7 @@ const MenuItemContainer = styled.div<Active>`
     height: 100%;
 
     position: absolute;
-    top: calc(100% - 10px);
+    top: 10px;
     background-color: transparent;
   }
   &::before {

@@ -6,6 +6,7 @@ const Container = styled.div`
   display: flex;
   max-width: 1140px;
   padding: 0 15px;
+  position: relative;
 `;
 
 interface myProps {
