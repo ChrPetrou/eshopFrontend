@@ -19,13 +19,17 @@
       "@components/*": ["./components/*"]
     }
   },
+  "typeAcquisition": {
+    "include": ["./interfaces/**/*"]
+  },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.js",
     "**/*.tsx",
     "**/*.json",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "interfaces/theme.d.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -19,7 +19,7 @@ const Btn = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  border: 1px solid ${colors.light};
+  border: 1px solid ${({ theme }) => theme.light};
   padding: 10px;
   width: 100%;
   max-width: 150px;
