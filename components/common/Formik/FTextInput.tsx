@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import TextInput from "../Inputs/TextInput";
+import TextInput from "../form/TextInput";
 
 const FTextInput: React.FC<{
   label: string;

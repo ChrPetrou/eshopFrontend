@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import { FaUser } from "react-icons/fa";
 import { colors } from "@/configs/colors";
-import Link from "next/link";
+import LoginPopUp from "../loginPopUp/LoginPopUp";
+import Modal from "../Modal";
+
 const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
@@ -13,7 +15,7 @@ const ProfileContainer = styled.div`
   margin: auto;
 `;
 
-const Btn = styled(Link)`
+const Btn = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -38,12 +40,22 @@ const Btn = styled(Link)`
 `;
 
 const Profile = () => {
+  const OpenModal = () => {
+    return <LoginPopUp />;
+  };
+
   return (
     <ProfileContainer>
-      <Btn href={"/login"}>
-        <p>login</p>
-        <FaUser size={20} />
-      </Btn>
+      <Modal ModalView={<LoginPopUp />}>
+        {/* <LoginPopUp /> */}
+
+        {({ ToggleModal }) => (
+          <Btn onClick={ToggleModal}>
+            <p>login</p>
+            <FaUser size={20} />
+          </Btn>
+        )}
+      </Modal>
     </ProfileContainer>
   );
 };

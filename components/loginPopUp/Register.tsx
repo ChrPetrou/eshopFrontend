@@ -2,8 +2,9 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import { styled } from "styled-components";
-import FTextInput from "../common/Formik/FTextInput";
-import FPasswordInput from "../common/Formik/FPasswordInput";
+import FTextInput from "../common/formik/FTextInput";
+import FPasswordInput from "../common/formik/FPasswordInput";
+import SubmitButton from "../common/form/SubmitButton";
 
 const Container = styled.div`
   display: flex;
@@ -84,7 +85,7 @@ const ErrorMsg = styled.div`
   }
 `;
 
-const Login = () => {
+const Register = () => {
   const signupSchema = yup.object().shape({
     firstName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
     lastName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
@@ -117,21 +118,14 @@ const Login = () => {
           console.log(values);
         }}
       >
-        {({
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          values,
-          setFieldValue,
-        }) => (
+        {(pros) => (
           <FormSc>
             <FTextInput label="First Name" name="firstName" />
             <FTextInput label="Last Name" name="lastName" />
             <FTextInput label="Email" name="email" />
             <FPasswordInput label="Password" name="password" />
             <FPasswordInput label="Confirm Password" name="confirmPassword" />
-            <button type="submit">Submit</button>
+            <SubmitButton name="submit" />
           </FormSc>
         )}
       </Formik>
@@ -139,4 +133,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

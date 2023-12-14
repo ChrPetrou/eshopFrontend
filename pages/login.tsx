@@ -1,6 +1,7 @@
 import Container from "@/components/common/Container";
 import ContainerInner from "@/components/common/ContainerInner";
-import Login from "@/components/login/Login";
+import Login from "@/components/loginPopUp/Login";
+import Register from "@/components/loginPopUp/Register";
 import React from "react";
 import { styled } from "styled-components";
 import * as Yup from "yup";
@@ -13,7 +14,7 @@ const login = () => {
     <Container>
       <ContainerInnerExtend>
         <Login />
-        <Login />
+        <Register />
       </ContainerInnerExtend>
     </Container>
   );

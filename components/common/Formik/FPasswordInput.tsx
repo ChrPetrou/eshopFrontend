@@ -1,6 +1,7 @@
 import { useField } from "formik";
 import React from "react";
-import TextInput from "../Inputs/TextInput";
+import PasswordInput from "../form/PasswordInput";
+import TextInput from "../form/TextInput";
 
 const FPasswordInput: React.FC<{
   label: string;
@@ -10,7 +11,7 @@ const FPasswordInput: React.FC<{
 }> = ({ label, name, ...props }) => {
   const [field, meta, helpers] = useField(name);
   return (
-    <TextInput
+    <PasswordInput
       label={label}
       name={name}
       value={field.value}
