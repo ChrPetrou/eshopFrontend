@@ -12,7 +12,10 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   width: 100%;
+  flex: 1;
   gap: 20px;
+  padding: 10px;
+  min-width: 250px;
   & h1 {
     margin-bottom: 10px;
   }

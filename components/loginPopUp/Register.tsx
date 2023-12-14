@@ -11,6 +11,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 20px;
+  flex: 1;
+  padding: 10px;
+  min-width: 250px;
   & h1 {
     margin-bottom: 10px;
   }

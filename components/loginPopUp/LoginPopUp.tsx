@@ -1,18 +1,43 @@
+import { colors } from "@/configs/colors";
 import React from "react";
 import { styled } from "styled-components";
+import Login from "./Login";
+import Register from "./Register";
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-wrap: wrap;
   top: 0;
   left: 0;
-  position: fixed;
-  background-color: red;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  max-width: 950px;
+  max-height: 550px;
+  gap: 10px;
+  background-color: ${colors.light};
+  & > :first-child {
+    border-right: 2px solid ${colors.dark};
+  }
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 5px; /* Adjust the width as needed */
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* background-color: transparent; */
+    display: none;
+  }
 `;
 
 const LoginPopUp = () => {
-  return <Container>LoginPopUp</Container>;
+  return (
+    <Container>
+      <Login />
+      <Register />
+    </Container>
+  );
 };
 
 export default LoginPopUp;
