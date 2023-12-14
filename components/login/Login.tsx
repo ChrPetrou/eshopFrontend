@@ -1,9 +1,9 @@
 import React from "react";
-import { Formik, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as yup from "yup";
 import { styled } from "styled-components";
-import { colors } from "@/configs/colors";
-import InputField from "../common/form/InputField";
+import FTextInput from "../common/Formik/FTextInput";
+import FPasswordInput from "../common/Formik/FPasswordInput";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const Container = styled.div`
   }
 `;
 
-const Form = styled.form`
+const FormSc = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -84,11 +84,22 @@ const ErrorMsg = styled.div`
   }
 `;
 
-interface LoginProps {
-  signupSchema: yup.ObjectSchema<any>;
-}
+const Login = () => {
+  const signupSchema = yup.object().shape({
+    firstName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
+    lastName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
+    email: yup.string().email("Invalid email").required("Required"),
+    password: yup
+      .string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Passwords must match")
+      .required("Required"),
+  });
 
-const Login = ({ signupSchema }: LoginProps) => {
   return (
     <Container>
       <h1>Register</h1>
@@ -114,55 +125,14 @@ const Login = ({ signupSchema }: LoginProps) => {
           values,
           setFieldValue,
         }) => (
-          <Form>
-            <InputField
-              name={"firstName"}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-            <InputField
-              name={"lastName"}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-            <InputField
-              name={"email"}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-            <InputField
-              name={"password"}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-            <InputField
-              name={"confirmPassword"}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-
-            <button>Submit</button>
-          </Form>
+          <FormSc>
+            <FTextInput label="First Name" name="firstName" />
+            <FTextInput label="Last Name" name="lastName" />
+            <FTextInput label="Email" name="email" />
+            <FPasswordInput label="Password" name="password" />
+            <FPasswordInput label="Confirm Password" name="confirmPassword" />
+            <button type="submit">Submit</button>
+          </FormSc>
         )}
       </Formik>
     </Container>
