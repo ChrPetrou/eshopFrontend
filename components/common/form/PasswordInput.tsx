@@ -28,7 +28,7 @@ const PlaceHolder = styled.div`
 `;
 
 interface ErrorMsg {
-  hasError: boolean | "" | undefined;
+  $hasError: boolean | "" | undefined;
 }
 
 const Input = styled.input<ErrorMsg>`
@@ -39,8 +39,8 @@ const Input = styled.input<ErrorMsg>`
   outline: none;
   position: relative;
   background-color: transparent;
-  border: ${({ hasError }) =>
-    hasError ? " 1px solid red" : "1px solid black"};
+  border: ${({ $hasError }) =>
+    $hasError ? " 1px solid red" : "1px solid black"};
 
   &:focus {
     + ${PlaceHolder} {
@@ -79,7 +79,7 @@ const PasswordInput: React.FC<{
   return (
     <FieldContainer>
       <Input
-        hasError={props.isError}
+        $hasError={props.isError}
         type={"password"}
         name={props.name}
         onChange={props.onChange}

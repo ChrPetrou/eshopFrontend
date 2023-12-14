@@ -12,13 +12,11 @@ const Container = styled.div`
   border-radius: 10px;
   width: 100%;
   height: 100%;
-  max-width: 950px;
-  max-height: 550px;
-  gap: 10px;
+  /* max-width: 950px;
+  max-height: 550px; */
   background-color: ${colors.light};
-  & > :first-child {
-    border-right: 2px solid ${colors.dark};
-  }
+  gap: 10px;
+
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 5px; /* Adjust the width as needed */

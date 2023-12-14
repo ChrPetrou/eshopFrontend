@@ -24,7 +24,7 @@ const MenuContainer = styled.div`
 `;
 
 interface Active {
-  isActive: boolean;
+  $isActive: boolean;
 }
 
 const MenuItemContainer = styled.div<Active>`
@@ -46,7 +46,7 @@ const MenuItemContainer = styled.div<Active>`
     background-color: transparent;
   }
   &::before {
-    content: ${({ isActive }) => (isActive ? `""` : "unset")};
+    content: ${({ $isActive }) => ($isActive ? `""` : "unset")};
     position: absolute;
     width: 10px;
     left: auto;
@@ -69,8 +69,8 @@ const MenuItemContainer = styled.div<Active>`
 `;
 
 interface cusDiv {
-  hasSections: boolean | undefined;
-  hasLength?: boolean;
+  $hasSections: boolean | undefined;
+  $hasLength?: boolean;
 }
 
 const MenuChildContainer = styled.div<cusDiv>`
@@ -80,8 +80,8 @@ const MenuChildContainer = styled.div<cusDiv>`
   z-index: 1;
   background-color: ${colors.dark};
   position: absolute;
-  left: ${({ hasSections, hasLength }) =>
-    hasSections && hasLength ? "0" : "unset"};
+  left: ${({ $hasSections, $hasLength }) =>
+    $hasSections && $hasLength ? "0" : "unset"};
   /* margin: auto; */
   padding: 10px;
   top: calc(100% + 10px);
@@ -102,7 +102,7 @@ const ChildContainerInner = styled.div<cusDiv>`
 
   width: 100%;
   /* flex: 1; */
-  flex-direction: ${({ hasSections }) => (hasSections ? "row" : "column")};
+  flex-direction: ${({ $hasSections }) => ($hasSections ? "row" : "column")};
   gap: 10px;
   flex-wrap: wrap;
 `;
@@ -116,8 +116,8 @@ const MenuChild = styled.div<cusDiv>`
   min-width: 110px;
   flex: 1;
   font-weight: 900;
-  border-right: ${({ hasSections }) =>
-    hasSections ? `2.5px solid ${colors.light}` : "none"};
+  border-right: ${({ $hasSections }) =>
+    $hasSections ? `2.5px solid ${colors.light}` : "none"};
   &:last-child {
     border-right: none;
   }
@@ -149,7 +149,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
     <MenuContainer onMouseLeave={() => !isActive && setActiveTap(null)}>
       {menu.map((element, index) => (
         <MenuItemContainer
-          isActive={
+          $isActive={
             activeTap === index &&
             element?.nestedMenu != undefined &&
             element?.nestedMenu.length > 0
@@ -165,11 +165,11 @@ const Menu: React.FC<Props> = ({ menu }) => {
             activeTap == index &&
             element?.nestedMenu.length > 0 && (
               <MenuChildContainer
-                hasLength={
+                $hasLength={
                   element?.nestedMenu != undefined &&
                   element?.nestedMenu.length > 4
                 }
-                hasSections={
+                $hasSections={
                   element.nestedMenu[0].nestedMenu &&
                   element.nestedMenu[0].nestedMenu.length > 0
                 }
@@ -177,7 +177,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
                 <ChildContainerInner
                   onMouseEnter={() => setIsActive(true)}
                   onMouseLeave={() => setActiveTap(null)}
-                  hasSections={
+                  $hasSections={
                     element.nestedMenu[0].nestedMenu &&
                     element.nestedMenu[0].nestedMenu.length > 0
                   }
@@ -186,7 +186,7 @@ const Menu: React.FC<Props> = ({ menu }) => {
                     <MenuChild
                       ref={ref}
                       key={ind}
-                      hasSections={
+                      $hasSections={
                         child?.nestedMenu != undefined &&
                         child.nestedMenu.length > 0
                           ? true
