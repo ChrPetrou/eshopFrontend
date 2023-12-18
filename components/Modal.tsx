@@ -27,7 +27,7 @@ const ModalContainerInner = styled.div<{ $mWidth: string; $mHeight: string }>`
   cursor: default;
   align-items: center;
   justify-content: center;
-
+  padding: 10px;
   width: 100%;
   height: 100%;
   max-width: ${({ $mWidth }) => $mWidth};
