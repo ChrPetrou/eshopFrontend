@@ -46,7 +46,7 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <Modal ModalView={<LoginPopUp />}>
+      <Modal ModalView={<LoginPopUp />} mHeight={"600px"}>
         {/* <LoginPopUp /> */}
 
         {({ ToggleModal }) => (

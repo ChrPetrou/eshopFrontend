@@ -5,21 +5,7 @@ import { styled } from "styled-components";
 import FTextInput from "../common/formik/FTextInput";
 import FPasswordInput from "../common/formik/FPasswordInput";
 import SubmitButton from "../common/form/SubmitButton";
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  flex-direction: column;
-  width: 100%;
-  flex: 1;
-  gap: 20px;
-  padding: 10px;
-  min-width: 250px;
-  & h1 {
-    margin-bottom: 10px;
-  }
-`;
+import Container from "./Container";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -105,27 +91,29 @@ const Login = () => {
 
   return (
     <Container>
-      <h1>Login</h1>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validationSchema={signInSchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          console.log(values);
-        }}
-      >
-        {(pros) => (
-          <FormSc>
-            <FTextInput label="Email" name="email" />
-            <FPasswordInput label="Password" name="password" />
+      <>
+        <h1>Login</h1>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={signInSchema}
+          onSubmit={(values) => {
+            // same shape as initial values
+            console.log(values);
+          }}
+        >
+          {(pros) => (
+            <FormSc>
+              <FTextInput label="Email" name="email" />
+              <FPasswordInput label="Password" name="password" />
 
-            <SubmitButton name="submit" />
-          </FormSc>
-        )}
-      </Formik>
+              <SubmitButton name="Submit" />
+            </FormSc>
+          )}
+        </Formik>
+      </>
     </Container>
   );
 };

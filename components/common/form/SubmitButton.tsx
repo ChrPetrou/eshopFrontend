@@ -15,12 +15,12 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  max-width: 250px;
+  max-width: 200px;
   border-radius: 8px;
   outline: none;
   cursor: pointer;
   background-color: transparent;
-  padding: 5px;
+  padding: 10px;
   border: 1px solid ${colors.dark};
   transition: 0.15s all linear;
   &:hover {

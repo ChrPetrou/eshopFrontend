@@ -15,6 +15,8 @@ const ModalContainer = styled.div`
   width: 100%;
   left: 0;
   right: 0;
+  padding: 10px;
+  cursor: pointer;
   top: 0;
   z-index: 1;
 `;
@@ -22,9 +24,10 @@ const ModalContainer = styled.div`
 const ModalContainerInner = styled.div<{ $mWidth: string; $mHeight: string }>`
   display: flex;
   flex-direction: column;
+  cursor: default;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+
   width: 100%;
   height: 100%;
   max-width: ${({ $mWidth }) => $mWidth};
@@ -56,11 +59,19 @@ const Modal = ({
 }: ModalProps) => {
   const { isOpen, ToggleModal } = useModalHook();
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  function handleClickOutside(event: React.MouseEvent<HTMLDivElement>) {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      ToggleModal();
+    }
+  }
+
   return isOpen ? (
     <>
       {children && children({ ToggleModal })}
-      <ModalContainer>
-        <ModalContainerInner $mWidth={mWidth} $mHeight={mHeight}>
+      <ModalContainer onClick={(e) => handleClickOutside(e)}>
+        <ModalContainerInner $mWidth={mWidth} $mHeight={mHeight} ref={ref}>
           <MdClose size={30} onClick={ToggleModal} />
 
           {ModalView}
