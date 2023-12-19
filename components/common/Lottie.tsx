@@ -2,18 +2,26 @@ import React, { useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import lottie, { AnimationItem } from "lottie-web";
 
-const Animation = styled.div`
+const Animation = styled.div<{ $mHeigth?: string; $mWidth?: string }>`
   display: flex;
   /* max-width: 50%; */
-  max-height: 70px;
-  max-width: 70px;
+  max-height: ${({ $mHeigth }) => $mHeigth};
+  max-width: ${({ $mWidth }) => $mWidth};
 `;
 
 interface LottieProps {
   path?: any;
+  isLoader?: boolean;
+  mHeigth?: string;
+  mWidth?: string;
 }
 
-const Lottie: React.FC<LottieProps> = ({ path }) => {
+const Lottie: React.FC<LottieProps> = ({
+  path,
+  isLoader,
+  mHeigth = "70px",
+  mWidth = "70px",
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const animationInstanceRef = useRef<AnimationItem | null>(null);
 
@@ -25,17 +33,29 @@ const Lottie: React.FC<LottieProps> = ({ path }) => {
       animationInstanceRef.current = lottie.loadAnimation({
         container: ref.current, // the dom element that will contain the animation
         renderer: "svg",
-        loop: false,
+        loop: !isLoader ? false : true,
         autoplay: true,
         animationData: path,
       });
+
       return () => {
         animationInstanceRef.current?.pause();
       };
     }
-  }, [path]);
+  }, [path, isLoader]);
 
-  return <Animation onMouseEnter={animate} ref={ref} />;
+  useEffect(() => {
+    if (animationInstanceRef.current) animationInstanceRef.current?.play();
+  }, []);
+
+  return (
+    <Animation
+      $mHeigth={mHeigth}
+      $mWidth={mWidth}
+      onMouseEnter={() => animate()}
+      ref={ref}
+    />
+  );
 };
 
 export default Lottie;

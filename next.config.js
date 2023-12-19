@@ -11,7 +11,9 @@ const nextConfig = {
 
     return config;
   },
-  env: {},
+  env: {
+    MONGO_URL: process.env.MONGO_URL,
+  },
   async headers() {
     return [
       {

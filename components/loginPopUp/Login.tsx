@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import { styled } from "styled-components";
@@ -6,9 +6,13 @@ import FTextInput from "../common/formik/FTextInput";
 import FPasswordInput from "../common/formik/FPasswordInput";
 import SubmitButton from "../common/form/SubmitButton";
 import Container from "./Container";
+import { UserApiAgent } from "@/utils/hooks/agents/userApiagent";
+import Lottie from "../common/Lottie";
+import loader from "../../public/animation/loader.json";
 
 const FormSc = styled(Form)`
   display: flex;
+  margin: auto;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -71,7 +75,8 @@ const Input = styled.input<ErrorMsg>`
 `;
 const ErrorMsg = styled.div`
   display: flex;
-  position: absolute;
+  justify-content: center;
+  /* position: absolute; */
   top: 100%;
   width: 100%;
   p {
@@ -89,6 +94,13 @@ const Login = () => {
       .required("Required"),
   });
 
+  interface token {
+    type: string;
+    code: string;
+  }
+  const [isLodaing, setIsLoading] = useState(false);
+  const [response, setResponse] = useState<token>();
+  const [error, setError] = useState({});
   return (
     <Container>
       <>
@@ -99,17 +111,40 @@ const Login = () => {
             password: "",
           }}
           validationSchema={signInSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values);
+          onSubmit={async (values) => {
+            setIsLoading(true);
+            const token = await UserApiAgent.login(
+              values.email,
+              values.password
+            ).catch((err) => {
+              console.log(err.response.data.message);
+              setError(err.response.data.message);
+            });
+            setResponse(token);
+            setIsLoading(false);
+            console.log(token);
           }}
         >
           {(pros) => (
             <FormSc>
-              <FTextInput label="Email" name="email" />
-              <FPasswordInput label="Password" name="password" />
-
-              <SubmitButton name="Submit" />
+              {!isLodaing ? (
+                <>
+                  {" "}
+                  <FTextInput label="Email" name="email" />
+                  <FPasswordInput label="Password" name="password" />
+                  {error && <ErrorMsg>{/* <p>{error}</p> */}</ErrorMsg>}
+                  <SubmitButton name="Submit" />
+                </>
+              ) : (
+                <>
+                  <Lottie
+                    mHeigth="200px"
+                    mWidth="150px"
+                    isLoader={true}
+                    path={loader}
+                  />
+                </>
+              )}
             </FormSc>
           )}
         </Formik>

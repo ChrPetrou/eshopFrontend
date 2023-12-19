@@ -29,13 +29,15 @@ const ModalContainerInner = styled.div<{ $mWidth: string; $mHeight: string }>`
   justify-content: center;
   padding: 10px;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   max-width: ${({ $mWidth }) => $mWidth};
-  max-height: ${({ $mHeight }) => $mHeight};
+  /* max-height: ${({ $mHeight }) => $mHeight}; */
   background-color: ${colors.light};
   border-radius: 8px;
   & svg {
     cursor: pointer;
+    min-width: 30px;
+    min-height: 30px;
     margin-left: auto;
   }
   &:first-child {

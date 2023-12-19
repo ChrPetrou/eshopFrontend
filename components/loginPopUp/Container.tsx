@@ -6,16 +6,12 @@ const ContainerInner = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 20px;
-  margin: auto;
+  gap: 5px;
+  margin: 0 auto;
   z-index: 1;
-  /* mix-blend-mode: color-burn; */
-  /* flex: 1; */
-  /* padding: 10px; */
   min-width: 100%;
   & h1 {
     text-align: center;
-    margin-bottom: 10px;
   }
 `;
 

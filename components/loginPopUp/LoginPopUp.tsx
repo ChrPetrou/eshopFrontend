@@ -47,7 +47,7 @@ const FormContainer = styled.div<{ $toggleLogin: boolean }>`
   display: flex;
   margin: auto;
   max-width: 450px;
-  padding: 20px;
+  /* padding: 0 10px; */
   gap: 20px;
   & > div {
     transition: 0.25s all linear;
@@ -94,6 +94,7 @@ const SwapSection = styled.div`
     color: white;
     mix-blend-mode: difference;
   }
+
   &.active {
     background-color: ${({ theme }) => theme.dark};
   }
