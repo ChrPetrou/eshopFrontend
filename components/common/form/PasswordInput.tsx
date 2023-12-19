@@ -84,7 +84,7 @@ const PasswordInput: React.FC<{
     <FieldContainer>
       <Input
         $hasError={props.isError}
-        type={showPassword ? "password" : "text"}
+        type={showPassword ? "text" : "password"}
         name={props.name}
         onChange={props.onChange}
         onBlur={props.onBlur}
@@ -96,7 +96,7 @@ const PasswordInput: React.FC<{
         <p>{props.label}</p>
       </PlaceHolder>
       <EyeContainer onClick={() => setShowPassword(!showPassword)}>
-        {showPassword ? <IoIosEye size={22} /> : <IoIosEyeOff size={22} />}
+        {showPassword ? <IoIosEyeOff size={22} /> : <IoIosEye size={22} />}
       </EyeContainer>
       {props.isError ? <FErrorMsg error={props.error} /> : null}
     </FieldContainer>
