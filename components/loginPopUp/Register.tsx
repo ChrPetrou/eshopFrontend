@@ -14,7 +14,10 @@ const FormSc = styled(Form)`
   gap: 20px;
 `;
 
-const Register = () => {
+interface Props {
+  setResponse: React.Dispatch<React.SetStateAction<any>>;
+}
+const Register = ({ setResponse }: Props) => {
   const signupSchema = yup.object().shape({
     firstName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
     lastName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),

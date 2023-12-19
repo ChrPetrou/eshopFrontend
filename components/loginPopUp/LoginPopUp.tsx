@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { css, keyframes, styled } from "styled-components";
 import Login from "./Login";
 import Register from "./Register";
+import TwoFa from "./TwoFa";
 
 const fadeIn = keyframes`
   0% {
@@ -102,26 +103,44 @@ const SwapSection = styled.div`
 
 const LoginPopUp = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
-
+  interface token {
+    type: string;
+    twoFaToken: string;
+    email: string;
+  }
+  const [response, setResponse] = useState<token>();
   return (
     <Container $toggleLogin={toggleLogin}>
       <CTA>
-        <SwapSection
-          onClick={() => setToggleLogin(false)}
-          className={!toggleLogin ? "active" : ""}
-        >
-          <p>Login </p>
-        </SwapSection>
-        <SwapSection
-          onClick={() => setToggleLogin(true)}
-          className={toggleLogin ? "active" : ""}
-        >
-          <p>Register </p>
-        </SwapSection>
+        {response ? (
+          <></>
+        ) : (
+          <>
+            <SwapSection
+              onClick={() => setToggleLogin(false)}
+              className={!toggleLogin ? "active" : ""}
+            >
+              <p>Login </p>
+            </SwapSection>
+            <SwapSection
+              onClick={() => setToggleLogin(true)}
+              className={toggleLogin ? "active" : ""}
+            >
+              <p>Register </p>
+            </SwapSection>
+          </>
+        )}
       </CTA>
       <FormContainer $toggleLogin={toggleLogin}>
-        <Login />
-        <Register />
+        {response ? (
+          <TwoFa response={response} />
+        ) : (
+          <>
+            {" "}
+            <Login setResponse={setResponse} />
+            <Register setResponse={setResponse} />
+          </>
+        )}
       </FormContainer>
     </Container>
   );

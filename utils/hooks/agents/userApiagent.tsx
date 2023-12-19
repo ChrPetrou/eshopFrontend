@@ -13,4 +13,9 @@ export const UserApiAgent = {
       })
       .then((res) => res.data);
   },
+  twoFa: async (code: string, token: string) => {
+    return userAPIAxios
+      .post("/users/2fa", { code: code, token: token })
+      .then((res) => res.data);
+  },
 };

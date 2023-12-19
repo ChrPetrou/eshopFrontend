@@ -84,7 +84,11 @@ const ErrorMsg = styled.div`
   }
 `;
 
-const Login = () => {
+interface Props {
+  setResponse: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const Login = ({ setResponse }: Props) => {
   const signInSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Required"),
     password: yup
@@ -94,13 +98,9 @@ const Login = () => {
       .required("Required"),
   });
 
-  interface token {
-    type: string;
-    code: string;
-  }
   const [isLodaing, setIsLoading] = useState(false);
-  const [response, setResponse] = useState<token>();
-  const [error, setError] = useState({});
+  // const [response, setResponse] = useState<token>();
+  const [error, setError] = useState<string>();
   return (
     <Container>
       <>
@@ -117,10 +117,11 @@ const Login = () => {
               values.email,
               values.password
             ).catch((err) => {
-              console.log(err.response.data.message);
-              setError(err.response.data.message);
+              console.log(err);
+              if (err.response.status == 400)
+                setError("invalid password or/and email");
             });
-            setResponse(token);
+            if (token) setResponse({ ...token, email: values.email });
             setIsLoading(false);
             console.log(token);
           }}
@@ -132,7 +133,11 @@ const Login = () => {
                   {" "}
                   <FTextInput label="Email" name="email" />
                   <FPasswordInput label="Password" name="password" />
-                  {error && <ErrorMsg>{/* <p>{error}</p> */}</ErrorMsg>}
+                  {error && (
+                    <ErrorMsg>
+                      <p>{error}</p>
+                    </ErrorMsg>
+                  )}
                   <SubmitButton name="Submit" />
                 </>
               ) : (
