@@ -101,7 +101,11 @@ const SwapSection = styled.div`
   }
 `;
 
-const LoginPopUp = () => {
+interface Props {
+  CloseModal?: () => void;
+}
+
+const LoginPopUp = ({ CloseModal }: Props) => {
   const [toggleLogin, setToggleLogin] = useState(false);
   interface token {
     twoFaToken: string;
@@ -132,7 +136,7 @@ const LoginPopUp = () => {
       </CTA>
       <FormContainer $toggleLogin={toggleLogin}>
         {response ? (
-          <TwoFa response={response} />
+          <TwoFa response={response} CloseModal={CloseModal} />
         ) : (
           <>
             <Login setResponse={setResponse} />

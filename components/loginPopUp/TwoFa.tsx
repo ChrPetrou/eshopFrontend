@@ -83,9 +83,10 @@ interface token {
 }
 interface Props {
   response: token;
+  CloseModal?: () => void;
 }
 
-const TwoFa = ({ response }: Props) => {
+const TwoFa = ({ response, CloseModal }: Props) => {
   const twoFaSchema = yup.object().shape({
     twofa: yup.string().required("Required"),
   });
@@ -117,7 +118,7 @@ const TwoFa = ({ response }: Props) => {
             });
             setRes(result);
             setIsLoading(false);
-            console.log(values);
+            if (CloseModal) CloseModal();
           }}
         >
           {(pros) => (

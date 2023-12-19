@@ -40,10 +40,6 @@ const Btn = styled.div`
 `;
 
 const Profile = () => {
-  const OpenModal = () => {
-    return <LoginPopUp />;
-  };
-
   return (
     <ProfileContainer>
       <Modal ModalView={<LoginPopUp />} mWidth={"500px"}>

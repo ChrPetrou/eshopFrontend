@@ -45,7 +45,7 @@ const ModalContainerInner = styled.div<{ $mWidth: string; $mHeight: string }>`
 `;
 
 interface ModalProps {
-  children?: (props: { ToggleModal: () => void }) => React.ReactNode;
+  children?: (props: { ToggleModal: () => void }) => JSX.Element;
   ModalView?: React.ReactNode;
 
   mWidth?: string;
@@ -59,7 +59,7 @@ const Modal = ({
   mWidth = "950px",
   mHeight = "550px",
 }: ModalProps) => {
-  const { isOpen, ToggleModal } = useModalHook();
+  const { isOpen, ToggleModal, CloseModal } = useModalHook();
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -76,7 +76,8 @@ const Modal = ({
         <ModalContainerInner $mWidth={mWidth} $mHeight={mHeight} ref={ref}>
           <MdClose size={30} onClick={ToggleModal} />
 
-          {ModalView}
+          {ModalView &&
+            React.cloneElement(ModalView as React.ReactElement, { CloseModal })}
         </ModalContainerInner>
       </ModalContainer>
     </>
