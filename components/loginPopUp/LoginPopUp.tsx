@@ -104,7 +104,6 @@ const SwapSection = styled.div`
 const LoginPopUp = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   interface token {
-    type: string;
     twoFaToken: string;
     email: string;
   }

@@ -86,7 +86,6 @@ const ErrorMsg = styled.div`
 `;
 
 interface token {
-  type: string;
   twoFaToken: string;
   email: string;
 }
