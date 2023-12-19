@@ -12,6 +12,7 @@ import loader from "../../public/animation/loader.json";
 import { Interface } from "node:readline/promises";
 import ErrorMsg from "../common/form/ErrorMsg";
 import { useModalHook } from "@/utils/hooks/useModalHook";
+import { setCookie } from "cookies-next";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -118,7 +119,10 @@ const TwoFa = ({ response, CloseModal }: Props) => {
             });
             setRes(result);
             setIsLoading(false);
-            if (CloseModal) CloseModal();
+            setCookie("token", result?.refreshToken, {
+              expires: new Date(result?.expire),
+            });
+            // if (CloseModal) CloseModal();
           }}
         >
           {(pros) => (
