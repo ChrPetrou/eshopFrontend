@@ -81,6 +81,7 @@ const Modal = ({
       </ModalContainer>
     </>
   ) : (
+    // <></>
     <>{children && children({ ToggleModal })}</>
   );
 };

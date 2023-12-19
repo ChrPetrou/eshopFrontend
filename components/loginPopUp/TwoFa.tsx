@@ -11,6 +11,7 @@ import Lottie from "../common/Lottie";
 import loader from "../../public/animation/loader.json";
 import { Interface } from "node:readline/promises";
 import ErrorMsg from "../common/form/ErrorMsg";
+import { useModalHook } from "@/utils/hooks/useModalHook";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -95,6 +96,7 @@ const TwoFa = ({ response }: Props) => {
   const resendCode = () => {
     console.log(response);
   };
+
   return (
     <Container>
       <>

@@ -36,10 +36,8 @@ const Input = styled.input<ErrorMsg>`
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-
   outline: none;
   position: relative;
-  background-color: transparent;
   border: ${({ $hasError }) =>
     $hasError ? " 1px solid red" : "1px solid black"};
 
@@ -55,6 +53,9 @@ const Input = styled.input<ErrorMsg>`
       bottom: 100%;
       background-color: white;
     }
+  }
+  -webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset !important; /* Override default blue color with white */
   }
 `;
 
