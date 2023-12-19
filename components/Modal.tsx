@@ -34,7 +34,7 @@ const ModalContainerInner = styled.div<{ $mWidth: string; $mHeight: string }>`
   /* max-height: ${({ $mHeight }) => $mHeight}; */
   background-color: ${colors.light};
   border-radius: 8px;
-  & svg {
+  & > svg {
     cursor: pointer;
     min-width: 30px;
     min-height: 30px;

@@ -135,7 +135,6 @@ const LoginPopUp = () => {
           <TwoFa response={response} />
         ) : (
           <>
-            {" "}
             <Login setResponse={setResponse} />
             <Register setResponse={setResponse} />
           </>

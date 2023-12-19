@@ -9,6 +9,7 @@ import Container from "./Container";
 import { UserApiAgent } from "@/utils/hooks/agents/userApiagent";
 import Lottie from "../common/Lottie";
 import loader from "../../public/animation/loader.json";
+import ErrorMsg from "../common/form/ErrorMsg";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -73,16 +74,6 @@ const Input = styled.input<ErrorMsg>`
     }
   }
 `;
-const ErrorMsg = styled.div`
-  display: flex;
-  justify-content: center;
-  /* position: absolute; */
-  top: 100%;
-  width: 100%;
-  p {
-    font-size: 14px;
-  }
-`;
 
 interface Props {
   setResponse: React.Dispatch<React.SetStateAction<any>>;
@@ -133,11 +124,7 @@ const Login = ({ setResponse }: Props) => {
                   {" "}
                   <FTextInput label="Email" name="email" />
                   <FPasswordInput label="Password" name="password" />
-                  {error && (
-                    <ErrorMsg>
-                      <p>{error}</p>
-                    </ErrorMsg>
-                  )}
+                  {error && <ErrorMsg text={error} />}
                   <SubmitButton name="Submit" />
                 </>
               ) : (

@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { colors } from "@/configs/colors";
 import { styled } from "styled-components";
+import ErrorMsg from "./ErrorMsg";
+import FErrorMsg from "../formik/FErrorMsg";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const FieldContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   position: relative;
   width: 100%;
   padding: 5px 0;
+  gap: 5px;
+`;
+
+const EyeContainer = styled.div`
+  justify-content: center;
+  display: flex;
+  & svg {
+    margin: auto;
+    cursor: pointer;
+  }
 `;
 
 const PlaceHolder = styled.div`
@@ -56,16 +69,6 @@ const Input = styled.input<ErrorMsg>`
     }
   }
 `;
-const ErrorMsg = styled.div`
-  display: flex;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  justify-content: flex-end;
-  p {
-    font-size: 14px;
-  }
-`;
 
 const PasswordInput: React.FC<{
   label: string;
@@ -76,25 +79,26 @@ const PasswordInput: React.FC<{
   isError: boolean;
   error?: string;
 }> = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <FieldContainer>
       <Input
         $hasError={props.isError}
-        type={"password"}
+        type={showPassword ? "password" : "text"}
         name={props.name}
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
         className={!!props.value ? "hasTxt" : ""}
       />
+
       <PlaceHolder>
         <p>{props.label}</p>
       </PlaceHolder>
-      {props.isError ? (
-        <ErrorMsg>
-          <p>{props.error}</p>
-        </ErrorMsg>
-      ) : null}
+      <EyeContainer onClick={() => setShowPassword(!showPassword)}>
+        {showPassword ? <IoIosEye size={22} /> : <IoIosEyeOff size={22} />}
+      </EyeContainer>
+      {props.isError ? <FErrorMsg error={props.error} /> : null}
     </FieldContainer>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { colors } from "@/configs/colors";
 import { styled } from "styled-components";
+import FErrorMsg from "../formik/FErrorMsg";
 
 const FieldContainer = styled.div`
   display: flex;
@@ -56,16 +57,6 @@ const Input = styled.input<ErrorMsg>`
     }
   }
 `;
-const ErrorMsg = styled.div`
-  display: flex;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  justify-content: flex-end;
-  p {
-    font-size: 14px;
-  }
-`;
 
 const TextInput: React.FC<{
   label: string;
@@ -90,11 +81,7 @@ const TextInput: React.FC<{
       <PlaceHolder>
         <p>{props.label}</p>
       </PlaceHolder>
-      {props.isError ? (
-        <ErrorMsg>
-          <p>{props.error}</p>
-        </ErrorMsg>
-      ) : null}
+      {props.isError ? <FErrorMsg error={props.error} /> : null}
     </FieldContainer>
   );
 };

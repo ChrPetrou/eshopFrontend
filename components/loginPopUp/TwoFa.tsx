@@ -10,6 +10,7 @@ import { UserApiAgent } from "@/utils/hooks/agents/userApiagent";
 import Lottie from "../common/Lottie";
 import loader from "../../public/animation/loader.json";
 import { Interface } from "node:readline/promises";
+import ErrorMsg from "../common/form/ErrorMsg";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -74,16 +75,6 @@ const Input = styled.input<ErrorMsg>`
     }
   }
 `;
-const ErrorMsg = styled.div`
-  display: flex;
-  justify-content: center;
-  /* position: absolute; */
-  top: 100%;
-  width: 100%;
-  p {
-    font-size: 14px;
-  }
-`;
 
 interface token {
   twoFaToken: string;
@@ -100,7 +91,7 @@ const TwoFa = ({ response }: Props) => {
 
   const [isLodaing, setIsLoading] = useState(false);
   const [cusError, setCusError] = useState<string>();
-
+  const [res, setRes] = useState<string>();
   const resendCode = () => {
     console.log(response);
   };
@@ -115,14 +106,14 @@ const TwoFa = ({ response }: Props) => {
           validationSchema={twoFaSchema}
           onSubmit={async (values) => {
             setIsLoading(true);
-            const res = await UserApiAgent.twoFa(
+            const result = await UserApiAgent.twoFa(
               values.twofa,
               response.twoFaToken
             ).catch((err) => {
               setCusError("Invalid verification code");
               console.log(err);
             });
-            console.log(res);
+            setRes(result);
             setIsLoading(false);
             console.log(values);
           }}
@@ -131,14 +122,17 @@ const TwoFa = ({ response }: Props) => {
             <FormSc>
               {!isLodaing ? (
                 <>
-                  {" "}
-                  <p>We sent a verification code to your email address</p>
-                  <FTextInput label="Verification Code" name="twofa" />
-                  <p onClick={resendCode}>Resend Code to email</p>
-                  <SubmitButton name="Submit" />
-                  <ErrorMsg>
-                    <p>{cusError}</p>
-                  </ErrorMsg>
+                  {res ? (
+                    <p>Two Done</p>
+                  ) : (
+                    <>
+                      <p>We sent a verification code to your email address</p>
+                      <FTextInput label="Verification Code" name="twofa" />
+                      <p onClick={resendCode}>Resend Code to email</p>
+                      <SubmitButton name="Submit" />
+                      {cusError && <ErrorMsg text={cusError} />}
+                    </>
+                  )}
                 </>
               ) : (
                 <>
