@@ -5,6 +5,15 @@ const userAPIAxios = axios.create({
 });
 
 export const UserApiAgent = {
+  register: async (email: string, password: string, username: string) => {
+    return await userAPIAxios
+      .post("/users/register", {
+        username,
+        email,
+        password,
+      })
+      .then((res) => res.data);
+  },
   login: async (email: string, password: string) => {
     return userAPIAxios
       .post("/users/login", {

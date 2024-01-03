@@ -6,7 +6,7 @@ import FTextInput from "../common/formik/FTextInput";
 import FPasswordInput from "../common/formik/FPasswordInput";
 import SubmitButton from "../common/form/SubmitButton";
 import Container from "./Container";
-import { UserApiAgent } from "@/utils/hooks/agents/userApiagent";
+import { UserApiAgent } from "@/utils/hooks/agents/userApiAgent";
 import Lottie from "../common/Lottie";
 import loader from "../../public/animation/loader.json";
 import ErrorMsg from "../common/form/ErrorMsg";
@@ -19,13 +19,6 @@ const FormSc = styled(Form)`
   width: 100%;
   flex-direction: column;
   gap: 20px;
-`;
-
-const FieldContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
 `;
 
 const PlaceHolder = styled.div`
@@ -49,32 +42,6 @@ interface ErrorMsg {
   hasError: boolean | "" | undefined;
 }
 
-const Input = styled.input<ErrorMsg>`
-  width: 100%;
-  padding: 8px;
-  border-radius: 8px;
-
-  outline: none;
-  position: relative;
-  background-color: transparent;
-  border: ${({ hasError }) =>
-    hasError ? " 1px solid red" : "1px solid black"};
-
-  &:focus {
-    + ${PlaceHolder} {
-      bottom: 100%;
-      background-color: white;
-    }
-  }
-
-  &.hasTxt {
-    + ${PlaceHolder} {
-      bottom: 100%;
-      background-color: white;
-    }
-  }
-`;
-
 interface Props {
   setResponse: React.Dispatch<React.SetStateAction<any>>;
 }
@@ -90,7 +57,6 @@ const Login = ({ setResponse }: Props) => {
   });
 
   const [isLodaing, setIsLoading] = useState(false);
-  // const [response, setResponse] = useState<token>();
   const [error, setError] = useState<string>();
   return (
     <Container>

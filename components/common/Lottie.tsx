@@ -7,6 +7,7 @@ const Animation = styled.div<{ $mHeigth?: string; $mWidth?: string }>`
   /* max-width: 50%; */
   max-height: ${({ $mHeigth }) => $mHeigth};
   max-width: ${({ $mWidth }) => $mWidth};
+  margin: auto;
 `;
 
 interface LottieProps {

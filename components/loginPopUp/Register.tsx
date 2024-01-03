@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import { styled } from "styled-components";
@@ -6,7 +6,11 @@ import FTextInput from "../common/formik/FTextInput";
 import FPasswordInput from "../common/formik/FPasswordInput";
 import SubmitButton from "../common/form/SubmitButton";
 import Container from "./Container";
-
+import { UserApiAgent } from "@/utils/hooks/agents/userApiAgent";
+import ErrorMsg from "../common/form/ErrorMsg";
+import Lottie from "../common/Lottie";
+import loader from "../../public/animation/loader.json";
+import { setCookie } from "cookies-next";
 const FormSc = styled(Form)`
   display: flex;
   min-width: 250px;
@@ -19,8 +23,11 @@ interface Props {
 }
 const Register = ({ setResponse }: Props) => {
   const signupSchema = yup.object().shape({
-    firstName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
-    lastName: yup.string().min(2, "Too Short!").max(50, "Too Long!"),
+    username: yup
+      .string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
     email: yup.string().email("Invalid email").required("Required"),
     password: yup
       .string()
@@ -32,33 +39,66 @@ const Register = ({ setResponse }: Props) => {
       .oneOf([yup.ref("password")], "Passwords must match")
       .required("Required"),
   });
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>();
   return (
     <Container>
       <>
         <h1>Register</h1>
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
+            username: "",
             email: "",
             password: "",
             confirmPassword: "",
           }}
           validationSchema={signupSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values);
+          onSubmit={async (values) => {
+            setIsLoading(true);
+            const token = await UserApiAgent.register(
+              values.email,
+              values.password,
+              values.username
+            ).catch((err) => {
+              console.log("error:", err);
+              if (err.response.status == 400)
+                setError("invalid password or/and email");
+            });
+            if (token) {
+              setResponse({ ...token, email: values.email });
+              setCookie("token", token?.refreshToken.token, {
+                expires: new Date(token?.expire),
+              });
+            }
+            setIsLoading(false);
+            console.log(token);
           }}
         >
           {(pros) => (
             <FormSc>
-              <FTextInput label="First Name" name="firstName" />
-              <FTextInput label="Last Name" name="lastName" />
-              <FTextInput label="Email" name="email" />
-              <FPasswordInput label="Password" name="password" />
-              <FPasswordInput label="Confirm Password" name="confirmPassword" />
-              <SubmitButton name="Submit" />
+              {isLoading ? (
+                <>
+                  <Lottie
+                    mHeigth="200px"
+                    mWidth="150px"
+                    isLoader={true}
+                    path={loader}
+                  />{" "}
+                </>
+              ) : (
+                <>
+                  <FTextInput label="Username" name="username" />
+
+                  <FTextInput label="Email" name="email" />
+                  <FPasswordInput label="Password" name="password" />
+                  <FPasswordInput
+                    label="Confirm Password"
+                    name="confirmPassword"
+                  />
+                  {error && <ErrorMsg text={error} />}
+                  <SubmitButton name="Submit" />
+                </>
+              )}
             </FormSc>
           )}
         </Formik>

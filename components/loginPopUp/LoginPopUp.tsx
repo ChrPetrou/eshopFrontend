@@ -1,5 +1,5 @@
 import { colors } from "@/configs/colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css, keyframes, styled } from "styled-components";
 import Login from "./Login";
 import Register from "./Register";
@@ -112,6 +112,16 @@ const LoginPopUp = ({ CloseModal }: Props) => {
     email: string;
   }
   const [response, setResponse] = useState<token>();
+
+  useEffect(() => {
+    console.log(response);
+    if (response) {
+      if (Object.keys(response).includes("refreshToken") && CloseModal) {
+        CloseModal();
+      }
+    }
+  }, [response]);
+
   return (
     <Container $toggleLogin={toggleLogin}>
       <CTA>
@@ -135,7 +145,7 @@ const LoginPopUp = ({ CloseModal }: Props) => {
         )}
       </CTA>
       <FormContainer $toggleLogin={toggleLogin}>
-        {response ? (
+        {response && Object.keys(response).includes("twoFaToken") ? (
           <TwoFa response={response} CloseModal={CloseModal} />
         ) : (
           <>

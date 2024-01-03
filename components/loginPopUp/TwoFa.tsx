@@ -6,7 +6,7 @@ import FTextInput from "../common/formik/FTextInput";
 import FPasswordInput from "../common/formik/FPasswordInput";
 import SubmitButton from "../common/form/SubmitButton";
 import Container from "./Container";
-import { UserApiAgent } from "@/utils/hooks/agents/userApiagent";
+import { UserApiAgent } from "@/utils/hooks/agents/userApiAgent";
 import Lottie from "../common/Lottie";
 import loader from "../../public/animation/loader.json";
 import { Interface } from "node:readline/promises";
@@ -122,7 +122,7 @@ const TwoFa = ({ response, CloseModal }: Props) => {
             setCookie("token", result?.refreshToken, {
               expires: new Date(result?.expire),
             });
-            // if (CloseModal) CloseModal();
+            if (CloseModal) CloseModal();
           }}
         >
           {(pros) => (
