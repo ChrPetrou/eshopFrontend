@@ -65,13 +65,13 @@ const Register = ({ setResponse }: Props) => {
                 setError("invalid password or/and email");
             });
             if (token) {
-              setResponse({ ...token, email: values.email });
-              setCookie("token", token?.refreshToken.token, {
-                expires: new Date(token?.expire),
+              setResponse({
+                twoFaToken: token?.validateToken,
+                type: "validation",
+                email: values.email,
               });
             }
             setIsLoading(false);
-            console.log(token);
           }}
         >
           {(pros) => (

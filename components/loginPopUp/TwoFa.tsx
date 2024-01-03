@@ -13,6 +13,8 @@ import { Interface } from "node:readline/promises";
 import ErrorMsg from "../common/form/ErrorMsg";
 import { useModalHook } from "@/utils/hooks/useModalHook";
 import { setCookie } from "cookies-next";
+import { Console } from "console";
+import { type } from "os";
 
 const FormSc = styled(Form)`
   display: flex;
@@ -81,6 +83,7 @@ const Input = styled.input<ErrorMsg>`
 interface token {
   twoFaToken: string;
   email: string;
+  type: string;
 }
 interface Props {
   response: token;
@@ -102,7 +105,11 @@ const TwoFa = ({ response, CloseModal }: Props) => {
   return (
     <Container>
       <>
-        <h1>Two-Factor Authentication</h1>
+        <h1>
+          {response?.type !== "2fa"
+            ? "Two-Factor Authentication"
+            : "Validate Email"}
+        </h1>
         <Formik
           initialValues={{
             twofa: "",

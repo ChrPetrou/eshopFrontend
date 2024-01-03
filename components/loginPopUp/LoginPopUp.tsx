@@ -1,4 +1,5 @@
 import { colors } from "@/configs/colors";
+import { getCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import { css, keyframes, styled } from "styled-components";
 import Login from "./Login";
@@ -110,17 +111,17 @@ const LoginPopUp = ({ CloseModal }: Props) => {
   interface token {
     twoFaToken: string;
     email: string;
+    type: string;
   }
   const [response, setResponse] = useState<token>();
 
   useEffect(() => {
-    console.log(response);
+    console.log("respo: ", response);
     if (response) {
-      if (Object.keys(response).includes("refreshToken") && CloseModal) {
-        CloseModal();
-      }
+      setToggleLogin(false);
+      if (CloseModal && getCookie("token")) CloseModal();
     }
-  }, [response]);
+  }, [response, CloseModal]);
 
   return (
     <Container $toggleLogin={toggleLogin}>
@@ -145,7 +146,7 @@ const LoginPopUp = ({ CloseModal }: Props) => {
         )}
       </CTA>
       <FormContainer $toggleLogin={toggleLogin}>
-        {response && Object.keys(response).includes("twoFaToken") ? (
+        {response ? (
           <TwoFa response={response} CloseModal={CloseModal} />
         ) : (
           <>
