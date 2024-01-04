@@ -120,15 +120,20 @@ const TwoFa = ({ response, CloseModal }: Props) => {
             const result = await UserApiAgent.twoFa(
               values.twofa,
               response.twoFaToken
-            ).catch((err) => {
-              setCusError("Invalid verification code");
-              console.log(err);
-            });
+            )
+              .then((res) => {
+                setCookie("token", res?.refreshToken, {
+                  expires: new Date(res?.expire),
+                });
+                return res;
+              })
+              .catch((err) => {
+                setCusError("Invalid verification code");
+                console.log(err);
+              });
             setRes(result);
             setIsLoading(false);
-            setCookie("token", result?.refreshToken, {
-              expires: new Date(result?.expire),
-            });
+
             if (CloseModal) CloseModal();
           }}
         >
